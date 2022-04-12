@@ -1,0 +1,294 @@
+@import "nullStyle"; // reset all default settings for all browsers
+//@import "fonts";  // connection of external fonts
+
+body {
+	background-color: #333;
+	color: #fff;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 0.875em;
+	/*  При наличии модификатора "--lock" запрещаем использовать сколл.
+	 Модификатор "--lock" мы добавлюяем в JS при активации меню */
+	&.--lock {
+		overflow: hidden;
+	}
+}
+
+.page {
+	padding: 90px 0px 30px 0px;
+	&__section {
+		padding: 30px;
+		max-width: 	1200px;
+		margin: 0px auto;
+		&--1 {
+			background-color: #794f45;
+		}
+		&--2 {
+			background-color: #77608d;
+		}
+		&--3 {
+			background-color: #7a956b;
+		}
+	}
+	&__title {
+		font-size: 2.5em;
+		margin: 0px 0px 20px 0px;
+	}
+	&__text {
+		font-size: 1em;
+		line-height: 150%;
+		p {
+			margin: 0px 0px 20px 0px;
+		}
+	}
+	&__sub-title {
+		font-size: 1.875em;
+		margin: 0px 0px 20px 0px;
+	}
+}
+
+.header {
+	// Фиксируем шапку, чтобы она не зависила от прокрутки, задаем расположение
+	position: fixed; 
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 10;
+	background-color: #912105;
+	&__conteiner {
+		// Задаем максимальную ширину ограничивающего контейнера и центруем его
+		max-width: 1200px;
+		margin: 0px auto;
+		// Здесь же создаем FLEX контейнер и задаем отступы как у основного контента (30px)
+		display: flex;
+		padding: 0px 30px;
+		align-items: center;            // Вырвнимаем все по центру
+		justify-content: space-between; // Разгоняем контейнер лого и меню равномерно по сторонам страницы
+		min-height: 70px;
+	}
+	&__logo {
+		// Создаем геометрическую фигуру (типа логотип)
+		border-radius: 50%;
+		background-color: #fff;
+		position: relative;
+		z-index: 5;
+		width: 40px;
+		height: 40px;
+	}
+	&__menu {}
+}
+.menu {
+	&__icon {
+		display: none;
+	}
+	&__body {}
+	&__list {
+		& > li {
+			position: relative; // Потому, что подменю будет позционировать относительно основных LI
+			margin: 0px 0px 0px 20px;
+		}
+	}
+	&__link {
+		color: #fff;
+		font-size: 1.125em;
+		&:hover {text-decoration: underline}
+	}
+	&__menu__arrow {
+		display: none;
+	}
+	&__sub-list {
+		position: absolute;
+		top: 100%;
+		right: 0;
+		background-color: #000;
+		padding: 15px;
+		min-width: 250px;
+		& li {
+			margin: 0px 0px 10px 0px;
+			&:last-child {margin: 0;}
+		}
+	}
+	&__sub-link {
+		color: #fff;
+		&:hover {text-decoration: underline;}
+	}
+}
+/* ---------------------------- Working with modifiers ------------------------- */
+
+// Обращаемся к BODY в режиме _PC, там обращаемся к MENU__LIST, а именно к LI первого уровня при наведении на него мышкой, а там к MENU__SUB-LIST
+body.--pc {
+	.menu {
+		&__list > li:hover .menu__sub-list {
+		opacity: 1;                      // Возвращаем видимость подменю
+		visibility: visible;             //Возвращаем возможность взаимодействовать
+		pointer-events: all;             //Возвращаем любое взаимодействие мыши с объектом (т.е. можно "помймать" исчезающее меню)
+		transform: translate(0px, 0px)	}
+	}
+}
+
+body.--touch {
+	.menu {
+		&__link {
+			flex: 1 1 auto;
+		}
+		&__list > li {
+			display: flex;       // Список первгого уровня из строки делаем флекс контйнером
+			align-items: center; // Центрируем по вертикали
+		}
+		// Возвращем меню, когда нажата стрелочка (--active) в режиме Smart device (--touch)
+		&__list > li.--active .menu__sub-list {
+			opacity: 1;                    // Возвращаем видимость подменю
+			visibility: visible;           //Возвращаем возможность взаимодействовать
+			pointer-events: all;           //Возвращаем любое взаимодействие мыши с объектом (т.е. можно "помймать" исчезающее меню)
+			transform: translate(0px, 0px);
+		}
+		// Добавляем анимацию стрелочки, когда нажата сама стрелочка (--active) в режиме Smart device (--touch)
+		&__list > li.--active .menu__arrow {
+			transform: rotate(-180deg); // Поворачиваем стрелочку на 180°
+		}
+		&__arrow {
+			display: block;
+			//Рисуем треугольник
+			width: 0;
+			height: 0;
+			margin: 0px 0px 0px 5px;
+			border-left: 5px solid transparent;
+			border-right: 5px solid transparent;
+			border-top: 10px solid #fff;
+			transition: transform 0.3s ease 0s; // Добавляем анимации треугольнику (transform - анимация геометрии) Стрелочка будет разворачиваться плавно, а не резко
+		}
+	}
+}
+
+/* ---------------------------- Working with media queries --------------------- */
+
+@media (min-width: 767px) {
+	.menu {
+		&__list {
+			display: flex;
+			align-items: center;
+			& > li {padding: 10px 0px;} // Задаем отступы только для LI первого уровня
+		}
+
+		&__sub-list {
+			transform: translate(0px, 10px); // Опустим подменю на 10рх
+			opacity: 0;                      // Делаем невидимым подменю
+			visibility: hidden;              // Убираем возможность взаимодействия со скрытым меню
+			pointer-events: none;            // Запрещает любое взаимодействие мыши с объектом (т.е. нельзя "помймать" исчезающее меню)
+			transition: all 0.3s ease 0s;    // Плавное исчезновение
+		}
+	}
+}
+
+@media (max-width: 767px) {
+	.menu {
+		&__icon {
+			z-index: 5;
+			display: block;
+			position: relative;
+			width: 30px;
+			height: 18px;
+			cursor: pointer;
+		}
+		 /* ------------- Отрисовываем значек меню бургера в виде 3х полосок ------- */
+		&__icon::before, &__icon::after, &__icon span {
+			left: 0;
+			position: absolute;
+			height: 10%;
+			width: 100%;
+			transition: all 0.3s ease 0s; // плавная анимация появления
+			background-color: #fff;     // цвет полосок
+		}
+		&__icon::before, &__icon::after {
+			content: ""; //Без пустого контента полоски не будут отображаться
+		}
+		&__icon::before {
+			top: 0;
+		}
+		&__icon::after {
+			bottom: 0;
+		}
+		&__icon span {
+			top: 50%;
+			transform:scale(1) translate(0px, -50%);
+		}
+		/* ------------- Анимируем меню в виде 3х полосок -------------------------- */
+		&__icon.--active {
+			span {transform: scale(0) translate(0px, -50%);} // Scale(0) скрывает среднюю полоску, которая реализована тегом SPAN
+			&::before {
+				top: 50%;
+				transform: rotate(-45deg) translate(0px, -50%);
+			}
+			&::after {
+				bottom: 50%;
+				transform: rotate(45deg) translate(0px, 50%);
+			}
+		}
+		/* ------------- Верстаем меню и скрываем его ------------------------------ */
+		&__body {
+			position: fixed; // фиксируем на экране
+			// Прижимаем к верхнему левому углу
+			top: 0; 
+			left: -100%; //Изначально убираем меню (прячем за лейвой частью экрана)
+			// Задаем максимальную ширину и выстоу экрана
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.9);
+			padding: 100px 30px 30px 30px;
+			transition: left 0.3s ease 0s; // Плавня анимация всего меню в левую сторону
+			overflow: auto; // Дает возможность скролить в приоритете меню, а не страницу
+		}
+		// Возвращаем меню при получение модификатора "--active"
+		&__body.--active {
+			left: 0;
+		}
+		/* Чтоб наше меню не налазило на шапку, мы добавиляем псевдоэлемент, которому задаем 
+		частичные параметры шапки, цвет и размер. После чего поднимаем Z-index, что бы меню 
+		уходило под этот псевдоэлемент. */
+		&__body::before {
+			content: "";
+			position: fixed;
+			width: 100%;
+			top: 0;
+			left: 0;
+			height: 70px;
+			background-color: #912105;
+			z-index: 2;
+		}
+		/* ------------- Приводим в порядок сами списки меню ----------------------- */
+		// Добавляем отступы в конце каждого списка
+		&__list > li {
+		/*	Т.к. Основной список LIST LI, и стрелочка + доп.список SUB-LIST LI являются 
+			FLEX элементами, мы им разрешаем переноситься на новую строку, вместо того, 
+			что бы сжиматься. */
+			flex-wrap: wrap; 
+			margin: 0px 0px 30px 0px;
+		}
+		// В конце последнего списка убираем отступ
+		&__list > li:last-child {
+			margin-bottom: 0;
+		}
+		// Обращаемся к LI в режиме --active, и указываем, что menu__sub-list должен показать меню
+		&__list > li.--active &__sub-list {
+			display: block;
+		}
+		// Увеличиваем размер основного меню
+		&__link {
+			font-size: 1.5em;
+		}
+		// Заниаемся подменю
+		&__sub-list {
+			position: relative;
+			background-color: #fff;
+			// Заставляем подменю занять полностью ширину экрана. Т.к. в "&__list > li" мы указали "flex-wrap: wrap;" то он перенесся на новую строку.
+			flex: 1 1 100%;
+			margin: 20px 0px 0px 0px;
+			display: none; // Скрываем подменю по умолчанию
+		}
+		&__sub-link {
+			font-size: 1.25em;
+			color: #000;
+		}
+	}
+}
+
+
