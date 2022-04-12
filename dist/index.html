@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/style.min.css?_v=20220412083228">
+	<title>Menu Burger JS edetion</title>
+</head>
+
+	<body>
+		<div class="wrapper">
+			<header class="header">
+	<!-- Ограничивающий контейнер шапки -->
+	<div class="header__conteiner">
+		<!-- Контейнер с неким логотипом -->
+		<a href="" class="header__logo"></a>
+		<!-- Контейнер со всей структурой меню. + Отдельно выносим класс MENU -->
+		<div class="header__menu menu">
+			<!-- Контейнер с иконкой меню (анимированные 3 полоски) -->
+			<div class="menu__icon">
+				<!-- Пустой SPAN необходим для построения значка меню в качестве трех полосок для Smart devices -->
+				<span></span>
+			</div>
+			<!-- Построение самого меню -->
+			<nav class="menu__body">
+				<ul class="menu__list">
+					<!-- Построение основного меню -->
+					<!-- К ссылкам добавляем дата аотрубуты DATA-GOTO, они нужны чтобы в JS можно было передавать класс объекта 
+					к которому нужно прокрутиться.
+					Внутрь добавляем модификаторы раздела.
+					Модификатор ставим с "." - это указывает на то, что мы будем искать имеено класс, а не текст. 
+					В ссылки HREF ставим заглушки #, т.к. мы не будем переходить на другие страницы сайта.
+					Это необходимо для плавной прокрутки к конкретному объекту. В нашем случае к соответствующему разделу сайта-->
+					<li><a data-goto=".page__section--1" href="#" class="menu__link">Основное меню Раздел Статья</a></li>
+					<li><a data-goto=".page__section--2" href="#" class="menu__link">Основное меню Раздел №1</a></li>
+					<li><a data-goto=".page__section--3" href="#" class="menu__link">Основное меню Раздел №2</a></li>
+					<!-- Построение разделов подменю -->
+					<!-- onclick="return false" - запрещает обновлять страницу при нажатии на пустую ссылку -->
+					<li><a href="#" onclick="return false" class="menu__link">Раздел подменю Страница №1</a>
+						<!-- Построение самого подменю в 1м разделе -->
+						<!-- Пустой SPAN необходим для отрисовки треугольника раскрывающегося меню -->
+						<span class="menu__arrow"></span>
+						<ul class="menu__sub-list">
+							<li><a href="#" class="menu__sub-link">Подменю Раздел страницы №1</a></li>
+							<li><a href="#" class="menu__sub-link">Подменю Раздел страницы №2</a></li>
+							<li><a href="#" class="menu__sub-link">Подменю Раздел страницы №3</a></li>
+						</ul>
+					</li>
+					<!-- onclick="return false" - запрещает обновлять страницу при нажатии на пустую ссылку -->
+					<li><a href="#" onclick="return false" class="menu__link">Раздел подменю Страница №2</a></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</header>
+			<main class="page">
+				<section class="page__section page__section--1">
+					<h1 class="page__title">Статья</h1>
+					<div class="page__text">
+						<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi, consequuntur. Nemo tempore magnam
+							tempora saepe incidunt soluta consequuntur molestias ipsum deserunt sed rerum a perspiciatis temporibus,
+							optio officia illum vel?</p>
+						<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi, consequuntur. Nemo tempore magnam
+							tempora saepe incidunt soluta consequuntur molestias ipsum deserunt sed rerum a perspiciatis temporibus,
+							optio officia illum vel?</p>
+						<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi, consequuntur. Nemo tempore magnam
+							tempora saepe incidunt soluta consequuntur molestias ipsum deserunt sed rerum a perspiciatis temporibus,
+							optio officia illum vel?</p>
+						<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi, consequuntur. Nemo tempore magnam
+							tempora saepe incidunt soluta consequuntur molestias ipsum deserunt sed rerum a perspiciatis temporibus,
+							optio officia illum vel?</p>
+					</div>
+				</section>
+				<section class="page__section page__section--2">
+					<h2 class="page__sub-title">Раздел сайта №1</h2>
+					<div class="page__text">
+						<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi, consequuntur. Nemo tempore magnam
+							tempora saepe incidunt soluta consequuntur molestias ipsum deserunt sed rerum a perspiciatis temporibus,
+							optio officia illum vel?</p>
+						<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi, consequuntur. Nemo tempore magnam
+							tempora saepe incidunt soluta consequuntur molestias ipsum deserunt sed rerum a perspiciatis temporibus,
+							optio officia illum vel?</p>
+						<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi, consequuntur. Nemo tempore magnam
+							tempora saepe incidunt soluta consequuntur molestias ipsum deserunt sed rerum a perspiciatis temporibus,
+							optio officia illum vel?</p>
+						<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi, consequuntur. Nemo tempore magnam
+							tempora saepe incidunt soluta consequuntur molestias ipsum deserunt sed rerum a perspiciatis temporibus,
+							optio officia illum vel?</p>
+					</div>
+				</section>
+				<section class="page__section page__section--3">
+					<h3 class="page__sub-title">Раздел сайта №2</h3>
+					<div class="page__text">
+						<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi, consequuntur. Nemo tempore magnam
+							tempora saepe incidunt soluta consequuntur molestias ipsum deserunt sed rerum a perspiciatis temporibus,
+							optio officia illum vel?</p>
+						<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi, consequuntur. Nemo tempore magnam
+							tempora saepe incidunt soluta consequuntur molestias ipsum deserunt sed rerum a perspiciatis temporibus,
+							optio officia illum vel?</p>
+						<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi, consequuntur. Nemo tempore magnam
+							tempora saepe incidunt soluta consequuntur molestias ipsum deserunt sed rerum a perspiciatis temporibus,
+							optio officia illum vel?</p>
+						<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi, consequuntur. Nemo tempore magnam
+							tempora saepe incidunt soluta consequuntur molestias ipsum deserunt sed rerum a perspiciatis temporibus,
+							optio officia illum vel?</p>
+					</div>
+				</section>
+			</main>
+			<footer></footer>
+		</div>
+		<script src="js/app.min.js?_v=20220412083228"></script>
+	</body>
+
+</html>
